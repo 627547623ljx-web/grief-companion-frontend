@@ -653,12 +653,20 @@
         ];
         
         // 初始化
-        window.onload = function() {
+        function initApp() {
+            console.log('[DEBUG] App initializing...');
+            console.log('[DEBUG] localStorage.consent_agreed =', localStorage.getItem('consent_agreed'));
+            
             // 检查是否需要显示知情同意书
+            const consentModal = document.getElementById('consentModal');
+            console.log('[DEBUG] consentModal element:', consentModal);
+            
             if (!localStorage.getItem('consent_agreed')) {
-                document.getElementById('consentModal').classList.add('active');
+                console.log('[DEBUG] No consent found, showing modal');
+                consentModal.classList.add('active');
             } else {
-                document.getElementById('consentModal').classList.remove('active');
+                console.log('[DEBUG] Consent already given, hiding modal');
+                consentModal.classList.remove('active');
             }
             
             // 检查是否需要显示问卷
@@ -669,6 +677,10 @@
             loadUserStatistics();
             loadMoodHistory();
         }
+        
+        // 两种方式确保初始化
+        document.addEventListener('DOMContentLoaded', initApp);
+        window.onload = initApp;
         
         // 初始化问卷HTML
         function initializeSurvey() {
