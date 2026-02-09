@@ -1,0 +1,24 @@
+{
+  "buildCommand": "pip install -r requirements.txt",
+  "outputDirectory": ".",
+  "env": {
+    "BACKEND_API": "https://1332551170-4tuhxe4fzv.ap-guangzhou.tencentscf.com"
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "web_app/app.py"
+    }
+  ],
+  "functions": {
+    "web_app/app.py": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/((?!api/.*).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
