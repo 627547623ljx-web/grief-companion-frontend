@@ -442,9 +442,12 @@
     <script>
         // 配置 - 直接调用后端Tencent SCF
         const BACKEND_API = "https://1332551170-4tuhxe4fzv.ap-guangzhou.tencentscf.com/api/chat";
+        const BACKEND_STATS_API = "https://1332551170-4tuhxe4fzv.ap-guangzhou.tencentscf.com/api/user/statistics";
+        const BACKEND_HISTORY_API = "https://1332551170-4tuhxe4fzv.ap-guangzhou.tencentscf.com/api/user/emotion-history";
         const USER_ID = "user_" + (localStorage.getItem('userId') || Math.random().toString(36).slice(2, 10));
-        let currentUserType = 'partner';
+        let currentUserType = 'Partner';
         let conversationCount = 0;
+        let moodHistory = [];
         
         // 保存用户ID
         if (!localStorage.getItem('userId')) {
@@ -454,7 +457,8 @@
         // 初始化
         window.onload = function() {
             setupEventListeners();
-            updateStatusDisplay();
+            loadUserStatistics();
+            loadMoodHistory();
         }
         
         function setupEventListeners() {
@@ -463,7 +467,8 @@
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.type-button').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-                    currentUserType = this.dataset.type;
+                    const typeMap = {'伴侣': 'Partner', '亲人': 'Parent', '宠物': 'Pet'};
+                    currentUserType = typeMap[this.textContent] || 'Partner';
                     updateStatusDisplay();
                 });
             });
@@ -477,15 +482,39 @@
             });
         }
         
+        async function loadUserStatistics() {
+            try {
+                const response = await fetch(BACKEND_STATS_API + '/' + USER_ID);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('interactionCount').textContent = data.totalInteractions || 0;
+                    const stability = Math.round((100 - Math.abs(data.averageEmotion - 0.5) * 200) * 100) / 100;
+                    document.getElementById('stabilityScore').textContent = stability.toFixed(1) + '%';
+                }
+            } catch (error) {
+                console.log('Stats API error:', error);
+            }
+        }
+        
+        async function loadMoodHistory() {
+            try {
+                const response = await fetch(BACKEND_HISTORY_API + '/' + USER_ID + '?days=7');
+                if (response.ok) {
+                    const data = await response.json();
+                    moodHistory = data.history || [];
+                }
+            } catch (error) {
+                console.log('History API error:', error);
+            }
+        }
+        
         async function sendMessage() {
             const input = document.getElementById('userInput').value.trim();
             if (!input) return;
             
-            // 显示用户消息
             addMessage('user', input);
             document.getElementById('userInput').value = '';
             
-            // 显示加载状态
             const botMsg = addMessage('bot', '<span class="loading"></span><span class="loading"></span><span class="loading"></span>');
             
             try {
@@ -500,24 +529,18 @@
                 });
                 
                 const data = await response.json();
-                
-                // 移除加载消息
                 botMsg.remove();
                 
                 if (data.response) {
-                    // 检查是否有警告
                     let messageClass = 'bot-message';
-                    if (data.emotionAnalysis && data.emotionAnalysis.includes('⚠️')) {
+                    if (data.alertFlag === 'crisis') {
                         messageClass = 'bot-message risk-message';
-                    } else if (data.emotionAnalysis && data.emotionAnalysis.includes('💡')) {
-                        messageClass = 'bot-message warning-message';
                     }
                     
                     addMessage('bot', data.response, messageClass);
-                    
-                    // 更新显示面板
                     updatePanels(data);
                     conversationCount++;
+                    loadUserStatistics();
                 } else {
                     addMessage('bot', '抱歉，出现了问题。请稍后重试。');
                 }
@@ -539,18 +562,14 @@
         }
         
         function updatePanels(data) {
-            // 更新心情指数
             if (data.moodIndex) {
                 const moodVal = parseFloat(data.moodIndex) || 50;
                 document.getElementById('moodValue').textContent = Math.round(moodVal);
                 document.getElementById('moodFill').style.width = moodVal + '%';
-                
-                // 更新趋势
                 const trend = moodVal > 50 ? '↘ 需要陪伴' : '↗ 逐步恢复';
                 document.getElementById('moodTrend').textContent = trend;
             }
             
-            // 更新阶段信息
             if (data.stageInfo) {
                 const stageMap = {
                     '否认': '正在适应，需要时间',
@@ -559,25 +578,14 @@
                     '抑郁': '深刻的悲伤感受',
                     '接受': '开始新的生活'
                 };
-                
                 document.getElementById('stageBadge').textContent = data.stageInfo;
-                document.getElementById('stageDescription').textContent = 
-                    stageMap[data.stageInfo] || '未知阶段';
+                document.getElementById('stageDescription').textContent = stageMap[data.stageInfo] || '未知阶段';
             }
             
-            // 更新统计
-            document.getElementById('interactionCount').textContent = conversationCount;
             document.getElementById('statusText').textContent = '进行中';
         }
         
-        function updateStatusDisplay() {
-            const typeMap = {
-                'partner': '伴侣',
-                'family': '亲人',
-                'pet': '宠物'
-            };
-            // 可选：显示当前选择的类型
-        }
+        function updateStatusDisplay() {}
     </script>
 </body>
 </html>
