@@ -440,8 +440,8 @@
     </div>
 
     <script>
-        // 配置 - 使用相对路径便于Vercel部署
-        const BACKEND_API = "/api/chat";
+        // 配置 - 直接调用后端Tencent SCF
+        const BACKEND_API = "https://1332551170-4tuhxe4fzv.ap-guangzhou.tencentscf.com/api/chat";
         const USER_ID = "user_" + (localStorage.getItem('userId') || Math.random().toString(36).slice(2, 10));
         let currentUserType = 'partner';
         let conversationCount = 0;

@@ -1,15 +1,15 @@
 {
-  "buildCommand": "pip install -r requirements.txt",
-  "functions": {
-    "api/index.py": {
-      "maxDuration": 30,
-      "runtime": "python3.9"
-    }
+  "buildCommand": "echo 'Static site'",
+  "outputDirectory": "public",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "env": {
+    "BACKEND_API": "https://1332551170-4tuhxe4fzv.ap-guangzhou.tencentscf.com"
   },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/api"
+      "source": "/:path((?!api/.*).*)",
+      "destination": "/index.html"
     }
   ]
 }
