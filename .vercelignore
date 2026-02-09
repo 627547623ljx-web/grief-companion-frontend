@@ -1,0 +1,8 @@
+web_app/
+*.pyc
+__pycache__/
+.git
+.gitignore
+README.md
+.env.local
+.env.*.local
