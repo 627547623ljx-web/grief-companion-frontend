@@ -356,9 +356,198 @@
                 opacity: 1;
             }
         }
+        
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
+        }
+        
+        .modal-header {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 15px;
+        }
+        
+        .modal-body {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .modal-body p {
+            margin-bottom: 12px;
+        }
+        
+        .modal-body strong {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .modal-btn-cancel {
+            background: #eee;
+            color: #666;
+        }
+        
+        .modal-btn-cancel:hover {
+            background: #ddd;
+        }
+        
+        .modal-btn-confirm {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .modal-btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .modal-btn-confirm:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* 问卷样式 */
+        .survey-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9fb;
+            border-radius: 8px;
+        }
+        
+        .survey-question {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .survey-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .survey-radio {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+        
+        .survey-radio input[type="radio"] {
+            cursor: pointer;
+        }
+        
+        .survey-radio label {
+            cursor: pointer;
+            margin: 0;
+            font-size: 13px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
+    <!-- 知情同意书弹窗 -->
+    <div id="consentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">📋 研究参与知情同意书</div>
+            <div class="modal-body">
+                <p><strong>尊敬的使用者：</strong></p>
+                <p>感谢您使用我们的陪伴机器人。为了进一步完善服务并进行学术研究，我们希望收集您的使用数据。</p>
+                
+                <p><strong>数据收集说明：</strong></p>
+                <p>✓ <strong>行为数据</strong>（自动后台记录）：</p>
+                <p style="margin-left: 20px;">- 消息发送的时间戳和时间间隔</p>
+                <p style="margin-left: 20px;">- 每条消息的字数</p>
+                <p style="margin-left: 20px;">- 交互频率和活跃度</p>
+                
+                <p>✓ <strong>主观感知数据</strong>（定期问卷）：</p>
+                <p style="margin-left: 20px;">- 每5-7天推送简版悲伤量表（GDS）</p>
+                <p style="margin-left: 20px;">- 您的自我评估和心理感受</p>
+                
+                <p><strong>数据用途：</strong></p>
+                <p>所有数据将进行<strong>完全匿名</strong>处理，仅用于：</p>
+                <p style="margin-left: 20px;">- 学术研究和论文发表</p>
+                <p style="margin-left: 20px;">- 改进服务质量</p>
+                <p style="margin-left: 20px;">- 心理健康研究</p>
+                
+                <p><strong>您的权利：</strong></p>
+                <p style="margin-left: 20px;">- 随时可以退出本研究</p>
+                <p style="margin-left: 20px;">- 可以拒绝特定的数据收集</p>
+                <p style="margin-left: 20px;">- 数据完全保密和匿名</p>
+                
+                <p style="color: #667eea; font-weight: 600;">点击"我已同意"表示您理解并同意以上说明。</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-cancel" onclick="declineConsent()">拒绝</button>
+                <button class="modal-btn modal-btn-confirm" onclick="acceptConsent()">我已同意</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 问卷弹窗 -->
+    <div id="surveyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">📝 简版悲伤量表 (GDS) - 心理评估</div>
+            <div class="modal-body">
+                <p>感谢您的参与。以下问卷帮助我们了解您最近的心理状态，请选择最符合您当前感受的选项。</p>
+                <p style="color: #999; font-size: 12px;">预计完成时间：2-3分钟</p>
+            </div>
+            <div id="surveyContainer"></div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-cancel" onclick="dismissSurvey()">跳过</button>
+                <button class="modal-btn modal-btn-confirm" onclick="submitSurvey()" id="submitSurveyBtn">提交问卷</button>
+            </div>
+        </div>
+    </div>
+
     <div class="main-container">
         <!-- 聊天区 -->
         <div class="chat-container">
@@ -454,11 +643,151 @@
             localStorage.setItem('userId', USER_ID.replace('user_', ''));
         }
         
+        // 问卷题目数据
+        const surveyQuestions = [
+            { id: 1, text: '在过去的一周内，您是否感到悲伤或沮丧？', options: ['完全没有', '偶尔', '经常', '几乎总是'] },
+            { id: 2, text: '您是否能从日常活动中获得快乐感？', options: ['能', '有时能', '很少能', '无法获得'] },
+            { id: 3, text: '您是否感到生活失去了目标或意义？', options: ['完全没有', '有所感受', '相当程度上', '非常同意'] },
+            { id: 4, text: '您对未来是否有希望？', options: ['很有希望', '有所希望', '希望不大', '完全没有希望'] },
+            { id: 5, text: '您是否经历过睡眠困难或过度睡眠？', options: ['没有', '有时', '经常', '严重困扰'] }
+        ];
+        
         // 初始化
         window.onload = function() {
+            // 检查是否需要显示知情同意书
+            if (!localStorage.getItem('consent_agreed')) {
+                document.getElementById('consentModal').classList.add('active');
+            } else {
+                document.getElementById('consentModal').classList.remove('active');
+            }
+            
+            // 检查是否需要显示问卷
+            checkAndShowSurvey();
+            
             setupEventListeners();
+            initializeSurvey();
             loadUserStatistics();
             loadMoodHistory();
+        }
+        
+        // 初始化问卷HTML
+        function initializeSurvey() {
+            const container = document.getElementById('surveyContainer');
+            container.innerHTML = '';
+            surveyQuestions.forEach(q => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'survey-item';
+                itemDiv.innerHTML = `
+                    <div class="survey-question">${q.id}. ${q.text}</div>
+                    <div class="survey-options">
+                        ${q.options.map((opt, idx) => `
+                            <label class="survey-radio">
+                                <input type="radio" name="question_${q.id}" value="${idx}" />
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+        
+        // 知情同意书 - 同意
+        function acceptConsent() {
+            localStorage.setItem('consent_agreed', 'true');
+            localStorage.setItem('consent_date', new Date().toISOString());
+            document.getElementById('consentModal').classList.remove('active');
+        }
+        
+        // 知情同意书 - 拒绝
+        function declineConsent() {
+            alert('您已拒绝数据收集。部分功能可能无法正常使用。\n您可以随时返回并更改同意状态。');
+            localStorage.setItem('consent_agreed', 'false');
+            document.getElementById('consentModal').classList.remove('active');
+        }
+        
+        // 检查是否显示问卷
+        function checkAndShowSurvey() {
+            const lastSurveyDate = localStorage.getItem('last_survey_date');
+            const now = new Date();
+            
+            if (!lastSurveyDate) {
+                // 第一次使用且同意了，5秒后弹出问卷
+                if (localStorage.getItem('consent_agreed') === 'true') {
+                    setTimeout(() => {
+                        showSurvey();
+                    }, 3000);
+                }
+            } else {
+                // 检查是否超过5-7天
+                const lastDate = new Date(lastSurveyDate);
+                const daysDiff = Math.floor((now - lastDate) / (1000 * 60 * 60 * 24));
+                
+                // 随机5-7天之间的某个时间
+                const surveyInterval = 5 + Math.random() * 2; // 5-7天
+                if (daysDiff >= surveyInterval) {
+                    setTimeout(() => {
+                        showSurvey();
+                    }, 2000);
+                }
+            }
+        }
+        
+        // 显示问卷
+        function showSurvey() {
+            document.getElementById('surveyModal').classList.add('active');
+        }
+        
+        // 关闭问卷（不提交）
+        function dismissSurvey() {
+            document.getElementById('surveyModal').classList.remove('active');
+        }
+        
+        // 提交问卷
+        async function submitSurvey() {
+            const responses = [];
+            let isComplete = true;
+            
+            surveyQuestions.forEach(q => {
+                const selected = document.querySelector(`input[name="question_${q.id}"]:checked`);
+                if (!selected) {
+                    isComplete = false;
+                }
+                responses.push({
+                    question_id: q.id,
+                    question_text: q.text,
+                    answer_index: selected ? parseInt(selected.value) : null,
+                    answer_text: selected ? selected.nextElementSibling.textContent : null
+                });
+            });
+            
+            if (!isComplete) {
+                alert('请完成所有问题再提交');
+                return;
+            }
+            
+            try {
+                const response = await fetch('https://1332551170-4tuhxe4fzv.ap-guangzhou.tencentscf.com/api/survey', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: USER_ID,
+                        timestamp: new Date().toISOString(),
+                        responses: responses
+                    })
+                });
+                
+                if (response.ok) {
+                    localStorage.setItem('last_survey_date', new Date().toISOString());
+                    document.getElementById('surveyModal').classList.remove('active');
+                    addMessage('bot', '✅ 感谢您完成问卷！您的反馈已被记录，这对我们了解您的心理状态非常帮助。');
+                } else {
+                    alert('问卷提交失败，请重试');
+                }
+            } catch (error) {
+                console.error('Survey submission error:', error);
+                alert('网络连接失败，请检查您的网络后重试');
+            }
         }
         
         function setupEventListeners() {
