@@ -447,6 +447,137 @@
             border: none;
         }
         
+        /* 知情同意书样式 */
+        .consent-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .consent-modal.show {
+            display: flex;
+        }
+        
+        .consent-content {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 550px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .consent-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 16px 16px 0 0;
+            text-align: center;
+        }
+        
+        .consent-header h2 {
+            font-size: 20px;
+            margin: 0;
+        }
+        
+        .consent-body {
+            padding: 25px;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .consent-body > p {
+            margin-bottom: 15px;
+        }
+        
+        .consent-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .consent-section h3 {
+            color: #667eea;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .consent-section p {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .consent-section ul {
+            padding-left: 20px;
+            font-size: 14px;
+        }
+        
+        .consent-section li {
+            margin-bottom: 6px;
+        }
+        
+        .consent-checkbox {
+            background: #e8f4fd;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .consent-checkbox label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .consent-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+        
+        .consent-footer {
+            padding: 20px 25px;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        
+        .btn-consent {
+            width: 100%;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-consent:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .btn-consent:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
         /* 隐藏类 */
         .hidden {
             display: none !important;
@@ -553,6 +684,66 @@
         <div class="chat-input-area">
             <input type="text" id="userInput" placeholder="在这里倾诉你的感受..." />
             <button class="send-btn" onclick="sendMessage()">发送</button>
+        </div>
+    </div>
+    
+    <!-- 知情同意书弹窗 -->
+    <div class="consent-modal" id="consentModal">
+        <div class="consent-content">
+            <div class="consent-header">
+                <h2>📋 研究参与知情同意书</h2>
+            </div>
+            
+            <div class="consent-body">
+                <p><strong>尊敬的用户：</strong></p>
+                <p>感谢您使用本陪伴机器人。在开始使用前，请您仔细阅读以下内容：</p>
+                
+                <div class="consent-section">
+                    <h3>一、研究目的</h3>
+                    <p>本研究旨在探索人工智能在情感支持与心理陪伴领域的应用，了解用户在使用过程中的体验与感受，以改进服务质量。</p>
+                </div>
+                
+                <div class="consent-section">
+                    <h3>二、数据收集说明</h3>
+                    <p>在使用过程中，我们将收集以下数据：</p>
+                    <ul>
+                        <li><strong>行为数据</strong>：消息发送时间戳、字数统计、互动间隔等</li>
+                        <li><strong>对话内容</strong>：您与机器人的对话记录</li>
+                        <li><strong>问卷反馈</strong>：定期情绪评估问卷的答案</li>
+                    </ul>
+                </div>
+                
+                <div class="consent-section">
+                    <h3>三、隐私保护承诺</h3>
+                    <ul>
+                        <li>所有数据将进行<strong>匿名化处理</strong>，不包含您的真实身份信息</li>
+                        <li>数据仅用于<strong>学术研究目的</strong>，不会用于商业用途</li>
+                        <li>研究数据将进行加密存储，确保数据安全</li>
+                        <li>您有权随时退出研究并要求删除您的数据</li>
+                    </ul>
+                </div>
+                
+                <div class="consent-section">
+                    <h3>四、风险与权益</h3>
+                    <p>本研究风险极低。如在使用过程中感到任何不适，您可以随时停止使用。本服务提供心理援助热线（400-161-9995）供您参考。</p>
+                </div>
+                
+                <div class="consent-section">
+                    <h3>五、自愿参与</h3>
+                    <p>您的参与完全自愿。您有权在研究过程中随时退出，且不会因此受到任何影响。</p>
+                </div>
+                
+                <div class="consent-checkbox">
+                    <label>
+                        <input type="checkbox" id="consentCheckbox">
+                        <span>我已阅读并理解以上内容，同意参与本研究</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="consent-footer">
+                <button class="btn-consent" id="consentBtn" disabled onclick="acceptConsent()">我同意，开始使用</button>
+            </div>
         </div>
     </div>
     
@@ -769,6 +960,14 @@
         // ====================== 聊天功能 ======================
         
         function showChatPage() {
+            // 先检查是否已同意知情同意书
+            if (!checkConsent()) {
+                // 显示知情同意书
+                document.getElementById('loginPage').classList.add('hidden');
+                showConsent();
+                return;
+            }
+            
             document.getElementById('loginPage').classList.add('hidden');
             document.getElementById('chatPage').classList.remove('hidden');
             document.getElementById('welcomeText').textContent = `欢迎回来，${currentUser.username}`;
@@ -1092,6 +1291,45 @@
             addMessage('bot', '📋 感谢你完成问卷！你的回答将帮助我更好地理解和陪伴你。继续分享你的感受吧~');
         }
         
+        // ====================== 知情同意书功能 ======================
+        
+        // 复选框变化事件
+        document.getElementById('consentCheckbox').addEventListener('change', function() {
+            document.getElementById('consentBtn').disabled = !this.checked;
+        });
+        
+        // 检查是否已同意知情同意书
+        function checkConsent() {
+            const consentKey = `consent_${currentUser?.id || 'anonymous'}`;
+            return localStorage.getItem(consentKey) === 'true';
+        }
+        
+        // 显示知情同意书
+        function showConsent() {
+            document.getElementById('consentModal').classList.add('show');
+            document.getElementById('consentCheckbox').checked = false;
+            document.getElementById('consentBtn').disabled = true;
+        }
+        
+        // 接受知情同意书
+        function acceptConsent() {
+            const consentKey = `consent_${currentUser?.id || 'anonymous'}`;
+            localStorage.setItem(consentKey, 'true');
+            
+            // 记录同意时间
+            localStorage.setItem(`consentTime_${currentUser?.id || 'anonymous'}`, Date.now().toString());
+            
+            document.getElementById('consentModal').classList.remove('show');
+            
+            // 显示聊天页面
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('chatPage').classList.remove('hidden');
+            document.getElementById('welcomeText').textContent = `欢迎回来，${currentUser.username}`;
+            
+            // 检查是否需要显示问卷
+            checkSurveySchedule();
+        }
+        
         // ====================== 初始化 ======================
         
         // 检查是否已登录
@@ -1102,7 +1340,15 @@
             if (savedToken && savedUser) {
                 authToken = savedToken;
                 currentUser = JSON.parse(savedUser);
-                showChatPage();
+                
+                // 检查是否已同意知情同意书
+                if (checkConsent()) {
+                    showChatPage();
+                } else {
+                    // 显示知情同意书
+                    document.getElementById('loginPage').classList.add('hidden');
+                    showConsent();
+                }
             }
         });
     </script>
