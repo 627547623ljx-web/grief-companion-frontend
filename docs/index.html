@@ -21,6 +21,103 @@
             padding: 20px;
         }
         
+        /* 登录页面样式 */
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .switch-form a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .error-msg {
+            background: #fee;
+            color: #c00;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        /* 聊天页面样式 */
         .chat-container {
             background: white;
             border-radius: 20px;
@@ -36,18 +133,30 @@
         .chat-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 25px;
-            text-align: center;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        .chat-header h1 {
-            font-size: 24px;
-            margin-bottom: 8px;
+        .chat-header-left h1 {
+            font-size: 22px;
+            margin-bottom: 4px;
         }
         
-        .chat-header p {
-            font-size: 14px;
+        .chat-header-left p {
+            font-size: 12px;
             opacity: 0.9;
+        }
+        
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
         }
         
         .user-type-bar {
@@ -189,10 +298,6 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
         
-        .send-btn:active {
-            transform: translateY(0);
-        }
-        
         .mood-panel {
             padding: 12px 20px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -228,9 +333,128 @@
             font-weight: 600;
         }
         
+        /* 问卷弹窗样式 */
+        .survey-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .survey-modal.show {
+            display: flex;
+        }
+        
+        .survey-content {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
+        }
+        
+        .survey-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .survey-header h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .survey-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .survey-question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .survey-question p {
+            color: #333;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        
+        .survey-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .survey-option {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .survey-option:hover {
+            border-color: #667eea;
+        }
+        
+        .survey-option.selected {
+            border-color: #667eea;
+            background: #f0f3ff;
+        }
+        
+        .survey-option input {
+            margin-right: 10px;
+        }
+        
+        .survey-footer {
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .survey-footer button {
+            flex: 1;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-cancel {
+            background: #eee;
+            color: #666;
+            border: none;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+        
+        /* 隐藏类 */
+        .hidden {
+            display: none !important;
+        }
+        
         /* 响应式 */
         @media (max-width: 540px) {
-            .chat-container {
+            .chat-container, .login-container {
                 height: 100vh;
                 border-radius: 0;
                 max-width: 100%;
@@ -243,17 +467,66 @@
     </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
+    <!-- 登录/注册页面 -->
+    <div class="login-container" id="loginPage">
+        <div class="login-header">
             <h1>🕊️ 陪伴机器人</h1>
-            <p>专为经历情感创伤的你而设计，随时倾听你的心声</p>
+            <p>专为经历情感创伤的你而设计</p>
+        </div>
+        
+        <div id="loginError" class="error-msg hidden"></div>
+        
+        <!-- 登录表单 -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label>用户名</label>
+                <input type="text" id="loginUsername" placeholder="请输入用户名" required>
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="loginPassword" placeholder="请输入密码" required>
+            </div>
+            <button type="submit" class="btn-primary">登录</button>
+        </form>
+        
+        <!-- 注册表单 -->
+        <form id="registerForm" class="hidden">
+            <div class="form-group">
+                <label>用户名</label>
+                <input type="text" id="regUsername" placeholder="至少3个字符" required>
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="regPassword" placeholder="至少6个字符" required>
+            </div>
+            <div class="form-group">
+                <label>确认密码</label>
+                <input type="password" id="regConfirmPassword" placeholder="再次输入密码" required>
+            </div>
+            <button type="submit" class="btn-primary">注册</button>
+        </form>
+        
+        <div class="switch-form">
+            <span id="switchText">还没有账号？</span>
+            <a href="#" id="switchLink">立即注册</a>
+        </div>
+    </div>
+    
+    <!-- 聊天页面 -->
+    <div class="chat-container hidden" id="chatPage">
+        <div class="chat-header">
+            <div class="chat-header-left">
+                <h1>🕊️ 陪伴机器人</h1>
+                <p id="welcomeText">欢迎回来</p>
+            </div>
+            <button class="logout-btn" onclick="logout()">退出登录</button>
         </div>
         
         <div class="user-type-bar">
             <label>选择场景：</label>
-            <button class="type-btn active" data-type="partner">伴侣</button>
-            <button class="type-btn" data-type="family">亲人</button>
-            <button class="type-btn" data-type="pet">宠物</button>
+            <button class="type-btn active" data-type="Partner">伴侣</button>
+            <button class="type-btn" data-type="Parent">亲人</button>
+            <button class="type-btn" data-type="Pet">宠物</button>
         </div>
         
         <div class="chat-messages" id="messageList">
@@ -282,13 +555,59 @@
             <button class="send-btn" onclick="sendMessage()">发送</button>
         </div>
     </div>
+    
+    <!-- 问卷弹窗 -->
+    <div class="survey-modal" id="surveyModal">
+        <div class="survey-content">
+            <div class="survey-header">
+                <h2>📝 情绪状态评估</h2>
+                <p>请根据过去一周的感受回答以下问题，这将帮助我们更好地陪伴你</p>
+            </div>
+            
+            <div id="surveyQuestions"></div>
+            
+            <div class="survey-footer">
+                <button class="btn-cancel" onclick="closeSurvey()">稍后再说</button>
+                <button class="btn-submit" onclick="submitSurvey()">提交问卷</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // 情绪状态
-        let moodIndex = 100;
-        let currentStage = 'denial';
-        let userType = 'partner';
+        // ====================== 配置 ======================
+        // 自动检测API地址
+        const API_BASE = window.BACKEND_AUTH_API_INJECTED || 
+                         (window.location.hostname.includes('github.io') 
+                             ? 'https://your-backend-url.com/api' 
+                             : `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}/api`);
+        
+        console.log('API地址:', API_BASE);
+        
+        // ====================== 状态管理 ======================
+        let currentUser = null;
+        let authToken = null;
+        let userType = 'Partner';
         let chatCount = 0;
+        let lastMessageTime = null;
+        
+        // 行为数据收集
+        const behaviorData = {
+            sessionStart: Date.now(),
+            messages: [],
+            totalChars: 0,
+            avgInterval: 0
+        };
+        
+        // GDS问卷（简版悲伤量表）
+        const GDS_QUESTIONS = [
+            { id: 1, text: '你对现在的生活感到满意吗？', options: ['非常满意', '比较满意', '不太满意', '非常不满意'] },
+            { id: 2, text: '你是否经常感到空虚或生活没有意义？', options: ['从不', '偶尔', '经常', '总是'] },
+            { id: 3, text: '你是否感到孤独或与人疏远？', options: ['从不', '偶尔', '经常', '总是'] },
+            { id: 4, text: '你是否对未来抱有希望？', options: ['非常有希望', '比较 hopeful', '不太确定', '很绝望'] },
+            { id: 5, text: '你是否经常感到悲伤或沮丧？', options: ['从不', '偶尔', '经常', '总是'] }
+        ];
+        
+        let surveyAnswers = {};
         
         // 阶段名称映射
         const stageNames = {
@@ -299,70 +618,276 @@
             'acceptance': '接受'
         };
         
-        // 回复模板库
-        const responses = {
-            'denial': [
-                "我能感受到你现在很难相信这一切是真的，这种感受很正常。给自己一些时间，不要强迫自己立刻面对。",
-                "面对突如其来的变故，感到难以置信是很自然的反应。你的感受完全可以理解。",
-                "现在的你可能觉得这一切像是一场梦，这很正常。每个人处理悲伤都需要自己的节奏。",
-                "接受现实需要时间，不要着急。我就在这里，随时倾听你的心声。"
-            ],
-            'anger': [
-                "你的愤怒是完全可以理解的，这种情绪是正常的。允许自己表达愤怒，不要压抑这些情绪。",
-                "愤怒是悲伤过程中常见的一部分，你并不孤单。我在这里倾听你的感受，你的情绪都是有效的。",
-                "感到不公和愤怒是很自然的反应。你的这些感受都值得被看见和理解。",
-                "不要责怪自己有这些情绪，它们都是你内心真实的表达。我在这里陪伴你。"
-            ],
-            'bargaining': [
-                "我能感受到你内心的挣扎和希望改变现状的愿望。讨价还价是人们面对失去时常有的心理反应。",
-                "你可能在想'如果当初...'，这些想法很正常。但要记得，有些事情不在我们的控制之中。",
-                "希望改变过去是人之常情，但也要学会慢慢接受现实。我会一直在这里支持你。",
-                "理解你想找到解决办法的心情。每一个'如果'都承载着你的爱和不舍。"
-            ],
-            'depression': [
-                "你的悲伤是深刻而真实的，我在这里陪伴你。虽然现在看不到光明，但这种痛苦不会永远持续下去。",
-                "感到绝望和空虚是悲伤过程中的正常部分，请不要责怪自己。你的痛苦我虽不能完全体会，但我愿意一直在这里倾听。",
-                "这段时间可能会很黑暗，但请相信光明终会到来。你不需要独自承受这一切。",
-                "悲伤像潮水一样来去，现在是退潮的时候，但水终会再次涨起。我在这里等你。"
-            ],
-            'acceptance': [
-                "看到你开始接受现实，这是一个重要的进步。接受不代表忘记，而是学会带着回忆继续生活。",
-                "你正在学习如何在新的现实中找到平衡，这很勇敢。记住美好时光的同时，也开始拥抱新的可能性。",
-                "每一天都是新的一步。你已经走了很远的路，为你的勇气和坚韧点赞。",
-                "接受是一个过程，你已经迈出了重要的一步。未来的路，我们一起走。"
-            ],
-            'general': [
-                "我在这里倾听你的每一句话，你的感受对我很重要。无论你现在经历什么情绪，都是正常的。",
-                "分享你的感受有助于缓解内心的压力，我很愿意倾听。你不需要独自承受这一切。",
-                "无论白天还是黑夜，我都在这里。你的坚强和脆弱都同样珍贵。",
-                "每一天都是一个新的开始，哪怕只是小小的一步。我会一直陪伴你。",
-                "你的情绪是真实的，你的感受是有效的。在这里，你可以完全做自己。"
-            ]
-        };
+        // ====================== 登录/注册功能 ======================
         
-        // 关键词检测
-        const keywords = {
-            'denial': ['不信', '不可能', '不是真的', '假的', '做梦', '难以置信', '不接受', '不会的'],
-            'anger': ['愤怒', '生气', '恨', '不公平', '为什么', '可恶', '讨厌', '气愤', '烦躁'],
-            'bargaining': ['如果', '早知道', '要是', '应该', '本来可以', '假如', '换作'],
-            'depression': ['难过', '悲伤', '绝望', '痛苦', '孤独', '无助', '想哭', '心痛', '空虚', '没意义'],
-            'acceptance': ['接受', '明白', '理解', '放下了', '释怀', '好多了', '走出来', '重新开始']
-        };
+        // 切换登录/注册表单
+        document.getElementById('switchLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const switchText = document.getElementById('switchText');
+            const switchLink = document.getElementById('switchLink');
+            
+            if (loginForm.classList.contains('hidden')) {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                switchText.textContent = '还没有账号？';
+                switchLink.textContent = '立即注册';
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                switchText.textContent = '已有账号？';
+                switchLink.textContent = '立即登录';
+            }
+            
+            document.getElementById('loginError').classList.add('hidden');
+        });
         
-        // 危机关键词
-        const crisisKeywords = ['自杀', '不想活', '死掉', '结束生命', '活不下去', '去死'];
+        // 登录
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!username || !password) {
+                showError('请填写用户名和密码');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentUser = { id: data.userId, username: data.userName };
+                    authToken = data.token;
+                    localStorage.setItem('authToken', authToken);
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    showChatPage();
+                } else {
+                    showError(data.error || '登录失败');
+                }
+            } catch (error) {
+                // 离线模式：允许本地使用
+                console.log('后端不可用，启用离线模式');
+                currentUser = { id: 'local_' + Date.now(), username: username };
+                authToken = 'local_token';
+                showChatPage();
+            }
+        });
+        
+        // 注册
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+            
+            if (username.length < 3) {
+                showError('用户名至少3个字符');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('密码至少6个字符');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showError('两次密码输入不一致');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentUser = { id: data.userId, username: data.userName };
+                    authToken = data.token;
+                    localStorage.setItem('authToken', authToken);
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    showChatPage();
+                } else {
+                    showError(data.error || '注册失败');
+                }
+            } catch (error) {
+                // 离线模式
+                console.log('后端不可用，启用离线模式');
+                currentUser = { id: 'local_' + Date.now(), username: username };
+                authToken = 'local_token';
+                showChatPage();
+            }
+        });
+        
+        function showError(msg) {
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.textContent = msg;
+            errorDiv.classList.remove('hidden');
+        }
+        
+        // ====================== 聊天功能 ======================
+        
+        function showChatPage() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('chatPage').classList.remove('hidden');
+            document.getElementById('welcomeText').textContent = `欢迎回来，${currentUser.username}`;
+            
+            // 检查是否需要显示问卷
+            checkSurveySchedule();
+        }
+        
+        function logout() {
+            currentUser = null;
+            authToken = null;
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('currentUser');
+            
+            document.getElementById('chatPage').classList.add('hidden');
+            document.getElementById('loginPage').classList.remove('hidden');
+            
+            // 清空聊天记录
+            document.getElementById('messageList').innerHTML = `
+                <div class="message bot-message">
+                    🌸 你好呀，我是你的陪伴者。无论你现在经历什么，我都愿意倾听和陪伴你。分享你的感受吧，好吗？
+                </div>
+            `;
+            chatCount = 0;
+            updateUI();
+        }
+        
+        // 发送消息
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            const currentTime = Date.now();
+            const messageLength = text.length;
+            let interval = 0;
+            
+            if (lastMessageTime) {
+                interval = Math.round((currentTime - lastMessageTime) / 1000);
+            }
+            lastMessageTime = currentTime;
+            
+            // 记录行为数据
+            behaviorData.messages.push({
+                timestamp: currentTime,
+                length: messageLength,
+                interval: interval
+            });
+            behaviorData.totalChars += messageLength;
+            
+            // 显示用户消息
+            addMessage('user', text);
+            input.value = '';
+            
+            // 显示输入中状态
+            const typing = showTyping();
+            
+            try {
+                // 调用后端API
+                const response = await fetch(`${API_BASE}/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        message: text,
+                        userType: userType
+                    })
+                });
+                
+                const data = await response.json();
+                
+                typing.remove();
+                
+                if (data.response) {
+                    addMessage('bot', data.response);
+                    document.getElementById('moodValue').textContent = data.moodIndex || '100';
+                    document.getElementById('stageBadge').textContent = data.stageInfo || '初始';
+                } else {
+                    // 后端返回错误，使用本地回复
+                    const localResponse = getLocalResponse(text);
+                    addMessage('bot', localResponse);
+                }
+            } catch (error) {
+                // 离线模式：使用本地回复
+                typing.remove();
+                const localResponse = getLocalResponse(text);
+                addMessage('bot', localResponse);
+            }
+            
+            chatCount++;
+            updateUI();
+            
+            // 保存行为数据到本地存储
+            saveBehaviorData();
+        }
+        
+        // 本地回复（离线模式）
+        function getLocalResponse(text) {
+            const responses = {
+                'denial': [
+                    "我能感受到你现在很难相信这一切是真的，这种感受很正常。给自己一些时间，不要强迫自己立刻面对。",
+                    "面对突如其来的变故，感到难以置信是很自然的反应。你的感受完全可以理解。"
+                ],
+                'anger': [
+                    "你的愤怒是完全可以理解的，这种情绪是正常的。允许自己表达愤怒，不要压抑这些情绪。",
+                    "愤怒是悲伤过程中常见的一部分，你并不孤单。我在这里倾听你的感受。"
+                ],
+                'bargaining': [
+                    "我能感受到你内心的挣扎和希望改变现状的愿望。这是面对失去时常有的心理反应。",
+                    "希望改变过去是人之常情，但也要学会慢慢接受现实。我会一直在这里支持你。"
+                ],
+                'depression': [
+                    "你的悲伤是深刻而真实的，我在这里陪伴你。虽然现在看不到光明，但这种痛苦不会永远持续下去。",
+                    "这段时间可能会很黑暗，但请相信光明终会到来。你不需要独自承受这一切。"
+                ],
+                'acceptance': [
+                    "看到你开始接受现实，这是一个重要的进步。接受不代表忘记，而是学会带着回忆继续生活。",
+                    "你正在学习如何在新的现实中找到平衡，这很勇敢。"
+                ],
+                'general': [
+                    "我在这里倾听你的每一句话，你的感受对我很重要。无论你现在经历什么情绪，都是正常的。",
+                    "分享你的感受有助于缓解内心的压力，我很愿意倾听。你不需要独自承受这一切。"
+                ]
+            };
+            
+            const stage = detectStage(text);
+            const stageResponses = responses[stage] || responses['general'];
+            return stageResponses[Math.floor(Math.random() * stageResponses.length)];
+        }
         
         // 检测情绪阶段
         function detectStage(text) {
+            const keywords = {
+                'denial': ['不信', '不可能', '不是真的', '假的', '做梦', '难以置信'],
+                'anger': ['愤怒', '生气', '恨', '不公平', '为什么', '可恶', '讨厌'],
+                'bargaining': ['如果', '早知道', '要是', '应该', '本来可以', '假如'],
+                'depression': ['难过', '悲伤', '绝望', '痛苦', '孤独', '无助', '想哭'],
+                'acceptance': ['接受', '明白', '理解', '放下了', '释怀', '好多了']
+            };
+            
             let maxScore = 0;
-            let detectedStage = currentStage;
+            let detectedStage = 'denial';
             
             for (const [stage, words] of Object.entries(keywords)) {
                 let score = 0;
                 for (const word of words) {
-                    if (text.includes(word)) {
-                        score++;
-                    }
+                    if (text.includes(word)) score++;
                 }
                 if (score > maxScore) {
                     maxScore = score;
@@ -373,51 +898,7 @@
             return detectedStage;
         }
         
-        // 检测危机
-        function detectCrisis(text) {
-            return crisisKeywords.some(keyword => text.includes(keyword));
-        }
-        
-        // 更新心情指数
-        function updateMoodIndex(text, stage) {
-            // 根据不同阶段调整心情指数
-            const stageWeights = {
-                'denial': -3,
-                'anger': -5,
-                'bargaining': -4,
-                'depression': -8,
-                'acceptance': +5
-            };
-            
-            const weight = stageWeights[stage] || -2;
-            const randomFactor = (Math.random() - 0.5) * 4;
-            
-            moodIndex = Math.max(10, Math.min(100, moodIndex + weight + randomFactor));
-            
-            return moodIndex;
-        }
-        
-        // 根据阶段获取回复
-        function getResponse(stage, userInput) {
-            const stageResponses = responses[stage] || responses['general'];
-            let response = stageResponses[Math.floor(Math.random() * stageResponses.length)];
-            
-            // 根据用户类型调整回复
-            if (userType === 'pet') {
-                response = response.replace(/他\/她/g, '它').replace(/爱人/g, '毛孩子');
-            } else if (userType === 'family') {
-                response = response.replace(/它/g, '他/她');
-            }
-            
-            // 危机检测
-            if (detectCrisis(userInput)) {
-                response = "⚠️ 我非常关心你的安全。如果你正在经历极度的痛苦，请立即联系心理健康专家或拨打心理援助热线：\n\n🇨🇳 全国心理援助热线：400-161-9995\n🇨🇳 北京心理危机研究与干预中心：010-82951332\n\n你不需要独自面对这一切，专业的帮助可以有效支持你。";
-            }
-            
-            return response;
-        }
-        
-        // 添加消息到聊天框
+        // 添加消息
         function addMessage(role, content) {
             const messageList = document.getElementById('messageList');
             const div = document.createElement('div');
@@ -438,43 +919,9 @@
             return div;
         }
         
-        // 更新界面状态
+        // 更新界面
         function updateUI() {
-            document.getElementById('moodValue').textContent = Math.round(moodIndex);
-            document.getElementById('stageBadge').textContent = stageNames[currentStage];
             document.getElementById('chatCount').textContent = chatCount;
-        }
-        
-        // 发送消息
-        function sendMessage() {
-            const input = document.getElementById('userInput');
-            const text = input.value.trim();
-            if (!text) return;
-            
-            // 显示用户消息
-            addMessage('user', text);
-            input.value = '';
-            
-            // 显示输入中状态
-            const typing = showTyping();
-            
-            // 检测情绪阶段
-            const detectedStage = detectStage(text);
-            if (detectedStage !== currentStage) {
-                currentStage = detectedStage;
-            }
-            
-            // 更新心情指数
-            updateMoodIndex(text, currentStage);
-            
-            // 延迟回复，模拟思考
-            setTimeout(() => {
-                typing.remove();
-                const response = getResponse(currentStage, text);
-                addMessage('bot', response);
-                chatCount++;
-                updateUI();
-            }, 800 + Math.random() * 700);
         }
         
         // 回车发送
@@ -492,15 +939,141 @@
                 this.classList.add('active');
                 userType = this.dataset.type;
                 
-                // 根据类型显示不同的欢迎消息
                 const typeMessages = {
-                    'partner': '明白了，你现在正在经历感情方面的困难。我愿意陪伴你走过这段旅程。',
-                    'family': '我理解你正在面对失去亲人的痛苦。这是非常艰难的时刻，我会一直在这里支持你。',
-                    'pet': '失去毛孩子是非常痛苦的。它们是我们的家人，我会陪伴你度过这段悲伤的时光。'
+                    'Partner': '明白了，你现在正在经历感情方面的困难。我愿意陪伴你走过这段旅程。',
+                    'Parent': '我理解你正在面对失去亲人的痛苦。这是非常艰难的时刻，我会一直在这里支持你。',
+                    'Pet': '失去毛孩子是非常痛苦的。它们是我们的家人，我会陪伴你度过这段悲伤的时光。'
                 };
                 
                 addMessage('bot', typeMessages[userType]);
             });
+        });
+        
+        // ====================== 行为数据收集 ======================
+        
+        function saveBehaviorData() {
+            const key = `behavior_${currentUser?.id || 'anonymous'}`;
+            const data = {
+                ...behaviorData,
+                lastUpdate: Date.now()
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+        
+        // ====================== 问卷功能 ======================
+        
+        function checkSurveySchedule() {
+            const lastSurveyKey = `lastSurvey_${currentUser?.id || 'anonymous'}`;
+            const lastSurvey = localStorage.getItem(lastSurveyKey);
+            
+            // 如果从未做过问卷，或者距离上次问卷已超过5天，显示问卷
+            const SURVEY_INTERVAL = 5 * 24 * 60 * 60 * 1000; // 5天
+            
+            if (!lastSurvey || (Date.now() - parseInt(lastSurvey)) > SURVEY_INTERVAL) {
+                // 延迟显示问卷，让用户先熟悉界面
+                setTimeout(showSurvey, 3000);
+            }
+        }
+        
+        function showSurvey() {
+            const modal = document.getElementById('surveyModal');
+            const questionsDiv = document.getElementById('surveyQuestions');
+            
+            // 生成问卷问题
+            questionsDiv.innerHTML = GDS_QUESTIONS.map(q => `
+                <div class="survey-question">
+                    <p>${q.id}. ${q.text}</p>
+                    <div class="survey-options">
+                        ${q.options.map((opt, idx) => `
+                            <label class="survey-option" data-question="${q.id}" data-index="${idx}">
+                                <input type="radio" name="q${q.id}" value="${idx}" onchange="selectOption(${q.id}, ${idx}, this)">
+                                ${opt}
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            surveyAnswers = {};
+            modal.classList.add('show');
+        }
+        
+        function selectOption(questionId, index, element) {
+            // 移除同问题其他选项的选中状态
+            document.querySelectorAll(`[data-question="${questionId}"]`).forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // 添加选中状态
+            element.closest('.survey-option').classList.add('selected');
+            
+            surveyAnswers[questionId] = {
+                question_id: questionId,
+                question_text: GDS_QUESTIONS.find(q => q.id === questionId).text,
+                answer_index: index,
+                answer_text: GDS_QUESTIONS.find(q => q.id === questionId).options[index]
+            };
+        }
+        
+        function closeSurvey() {
+            document.getElementById('surveyModal').classList.remove('show');
+        }
+        
+        async function submitSurvey() {
+            // 检查是否回答了所有问题
+            if (Object.keys(surveyAnswers).length < GDS_QUESTIONS.length) {
+                alert('请回答所有问题');
+                return;
+            }
+            
+            const responses = Object.values(surveyAnswers);
+            
+            try {
+                // 提交到后端
+                const response = await fetch(`${API_BASE}/survey`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: currentUser?.id,
+                        timestamp: Date.now(),
+                        responses: responses
+                    })
+                });
+                
+                const data = await response.json();
+                console.log('问卷提交结果:', data);
+            } catch (error) {
+                console.log('问卷保存到本地');
+            }
+            
+            // 保存到本地存储
+            const surveyKey = `surveys_${currentUser?.id || 'anonymous'}`;
+            const surveys = JSON.parse(localStorage.getItem(surveyKey) || '[]');
+            surveys.push({
+                timestamp: Date.now(),
+                responses: responses
+            });
+            localStorage.setItem(surveyKey, JSON.stringify(surveys));
+            
+            // 记录最后问卷时间
+            localStorage.setItem(`lastSurvey_${currentUser?.id || 'anonymous'}`, Date.now().toString());
+            
+            closeSurvey();
+            addMessage('bot', '📋 感谢你完成问卷！你的回答将帮助我更好地理解和陪伴你。继续分享你的感受吧~');
+        }
+        
+        // ====================== 初始化 ======================
+        
+        // 检查是否已登录
+        window.addEventListener('load', function() {
+            const savedToken = localStorage.getItem('authToken');
+            const savedUser = localStorage.getItem('currentUser');
+            
+            if (savedToken && savedUser) {
+                authToken = savedToken;
+                currentUser = JSON.parse(savedUser);
+                showChatPage();
+            }
         });
     </script>
 </body>
