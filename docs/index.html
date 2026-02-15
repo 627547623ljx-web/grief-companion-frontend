@@ -578,6 +578,200 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
         
+        /* 上传弹窗样式 */
+        .upload-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .upload-modal.show {
+            display: flex;
+        }
+        
+        .upload-content {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 550px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .upload-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 16px 16px 0 0;
+            text-align: center;
+        }
+        
+        .upload-header h2 {
+            font-size: 20px;
+            margin: 0 0 5px 0;
+        }
+        
+        .upload-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .upload-body {
+            padding: 25px;
+        }
+        
+        .upload-intro {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .upload-intro p {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .upload-tip {
+            background: #fff3cd;
+            border-radius: 8px;
+            padding: 12px;
+            color: #856404;
+            font-size: 14px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #667eea;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9ff;
+        }
+        
+        .upload-area:hover {
+            background: #f0f3ff;
+            border-color: #764ba2;
+        }
+        
+        .upload-area.dragover {
+            background: #e8f0fe;
+            border-color: #4285f4;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        .upload-area p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .upload-formats {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .uploaded-files {
+            margin-top: 15px;
+        }
+        
+        .uploaded-file {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+        }
+        
+        .uploaded-file .file-icon {
+            font-size: 24px;
+            margin-right: 12px;
+        }
+        
+        .uploaded-file .file-info {
+            flex: 1;
+        }
+        
+        .uploaded-file .file-name {
+            font-size: 14px;
+            color: #333;
+            word-break: break-all;
+        }
+        
+        .uploaded-file .file-size {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .uploaded-file .file-remove {
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 5px;
+        }
+        
+        .upload-note {
+            margin-top: 15px;
+            padding: 12px;
+            background: #e8f4fd;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #0c5460;
+        }
+        
+        .upload-footer {
+            padding: 20px 25px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-skip {
+            flex: 1;
+            padding: 14px;
+            background: #f8f9fa;
+            color: #666;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-skip:hover {
+            background: #e9ecef;
+        }
+        
+        .btn-start {
+            flex: 2;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
         /* 隐藏类 */
         .hidden {
             display: none !important;
@@ -760,6 +954,41 @@
             <div class="survey-footer">
                 <button class="btn-cancel" onclick="closeSurvey()">稍后再说</button>
                 <button class="btn-submit" onclick="submitSurvey()">提交问卷</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 上传聊天记录弹窗 -->
+    <div class="upload-modal" id="uploadModal">
+        <div class="upload-content">
+            <div class="upload-header">
+                <h2>📸 上传聊天记录</h2>
+                <p>让机器人学习模仿TA的语气和态度</p>
+            </div>
+            
+            <div class="upload-body">
+                <div class="upload-intro">
+                    <p>为了让陪伴机器人能够更好地模拟<strong>逝去或离开的人/宠物</strong>的语气和态度，请您上传一些以前的聊天截图或视频。</p>
+                    <p class="upload-tip">💡 系统会分析这些材料，学习TA的表达习惯、常用语气和说话风格。</p>
+                </div>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <p>点击或拖拽文件到此处上传</p>
+                    <p class="upload-formats">支持：图片(jpg/png)、视频(mp4)、文本(txt)</p>
+                    <input type="file" id="fileInput" multiple accept="image/*,video/*,.txt" style="display:none">
+                </div>
+                
+                <div class="uploaded-files" id="uploadedFiles"></div>
+                
+                <div class="upload-note">
+                    <p>🔒 隐私说明：上传的文件仅用于训练机器人模仿语气，不会用于其他目的。数据会进行匿名化处理。</p>
+                </div>
+            </div>
+            
+            <div class="upload-footer">
+                <button class="btn-skip" onclick="skipUpload()">跳过，稍后再说</button>
+                <button class="btn-start" id="startChatBtn" onclick="startWithUploads()">开始对话</button>
             </div>
         </div>
     </div>
@@ -1288,7 +1517,9 @@
             localStorage.setItem(`lastSurvey_${currentUser?.id || 'anonymous'}`, Date.now().toString());
             
             closeSurvey();
-            addMessage('bot', '📋 感谢你完成问卷！你的回答将帮助我更好地理解和陪伴你。继续分享你的感受吧~');
+            
+            // 显示上传界面
+            showUploadModal();
         }
         
         // ====================== 知情同意书功能 ======================
@@ -1297,6 +1528,174 @@
         document.getElementById('consentCheckbox').addEventListener('change', function() {
             document.getElementById('consentBtn').disabled = !this.checked;
         });
+        
+        // ====================== 文件上传功能 ======================
+        
+        let uploadedFiles = [];
+        
+        // 初始化上传区域事件
+        function initUploadArea() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            
+            // 点击上传
+            uploadArea.addEventListener('click', () => fileInput.click());
+            
+            // 拖拽上传
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                handleFiles(e.dataTransfer.files);
+            });
+            
+            // 文件选择
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+            });
+        }
+        
+        // 处理文件
+        function handleFiles(files) {
+            for (const file of files) {
+                // 检查文件类型
+                const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/webm', 'text/plain'];
+                if (!validTypes.includes(file.type)) {
+                    alert(`不支持的文件类型: ${file.name}`);
+                    continue;
+                }
+                
+                // 检查文件大小 (最大50MB)
+                if (file.size > 50 * 1024 * 1024) {
+                    alert(`文件太大: ${file.name}`);
+                    continue;
+                }
+                
+                // 读取文件
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const fileData = {
+                        id: Date.now() + Math.random(),
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        data: e.target.result
+                    };
+                    uploadedFiles.push(fileData);
+                    renderUploadedFiles();
+                };
+                
+                if (file.type.startsWith('image/')) {
+                    reader.readAsDataURL(file);
+                } else if (file.type.startsWith('video/')) {
+                    reader.readAsDataURL(file);
+                } else {
+                    reader.readAsText(file);
+                }
+            }
+        }
+        
+        // 渲染已上传文件列表
+        function renderUploadedFiles() {
+            const container = document.getElementById('uploadedFiles');
+            container.innerHTML = uploadedFiles.map(file => {
+                let icon = '📄';
+                if (file.type.startsWith('image/')) icon = '🖼️';
+                else if (file.type.startsWith('video/')) icon = '🎬';
+                else if (file.type === 'text/plain') icon = '📝';
+                
+                return `
+                    <div class="uploaded-file">
+                        <span class="file-icon">${icon}</span>
+                        <div class="file-info">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-size">${formatFileSize(file.size)}</div>
+                        </div>
+                        <span class="file-remove" onclick="removeFile('${file.id}')">✕</span>
+                    </div>
+                `;
+            }).join('');
+            
+            // 更新按钮文字
+            const startBtn = document.getElementById('startChatBtn');
+            if (uploadedFiles.length > 0) {
+                startBtn.textContent = `开始对话 (已上传 ${uploadedFiles.length} 个文件)`;
+            } else {
+                startBtn.textContent = '开始对话';
+            }
+        }
+        
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+        
+        // 移除文件
+        function removeFile(fileId) {
+            uploadedFiles = uploadedFiles.filter(f => f.id != fileId);
+            renderUploadedFiles();
+        }
+        
+        // 显示上传弹窗
+        function showUploadModal() {
+            document.getElementById('uploadModal').classList.add('show');
+            initUploadArea();
+        }
+        
+        // 跳过上传
+        function skipUpload() {
+            document.getElementById('uploadModal').classList.remove('show');
+            showChatPageAfterSetup();
+        }
+        
+        // 开始对话（带上传文件）
+        function startWithUploads() {
+            // 保存上传的文件到本地存储
+            if (uploadedFiles.length > 0) {
+                const uploadKey = `uploads_${currentUser?.id || 'anonymous'}`;
+                const existingUploads = JSON.parse(localStorage.getItem(uploadKey) || '[]');
+                existingUploads.push({
+                    timestamp: Date.now(),
+                    files: uploadedFiles.map(f => ({
+                        name: f.name,
+                        size: f.size,
+                        type: f.type,
+                        data: f.data
+                    }))
+                });
+                localStorage.setItem(uploadKey, JSON.stringify(existingUploads));
+                
+                // 标记已上传
+                localStorage.setItem(`hasUploaded_${currentUser?.id || 'anonymous'}`, 'true');
+            }
+            
+            document.getElementById('uploadModal').classList.remove('show');
+            showChatPageAfterSetup();
+        }
+        
+        // 设置完成后显示聊天页面
+        function showChatPageAfterSetup() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('chatPage').classList.remove('hidden');
+            document.getElementById('welcomeText').textContent = `欢迎回来，${currentUser.username}`;
+            
+            // 如果上传了文件，显示特殊欢迎消息
+            if (uploadedFiles.length > 0) {
+                addMessage('bot', `📚 我已经学习了TA的聊天风格，会尽力模仿TA的语气和态度来陪伴你。有什么想和TA说的吗？`);
+            }
+            
+            uploadedFiles = [];
+        }
         
         // 检查是否已同意知情同意书
         function checkConsent() {
@@ -1321,13 +1720,8 @@
             
             document.getElementById('consentModal').classList.remove('show');
             
-            // 显示聊天页面
-            document.getElementById('loginPage').classList.add('hidden');
-            document.getElementById('chatPage').classList.remove('hidden');
-            document.getElementById('welcomeText').textContent = `欢迎回来，${currentUser.username}`;
-            
-            // 检查是否需要显示问卷
-            checkSurveySchedule();
+            // 显示问卷
+            showSurvey();
         }
         
         // ====================== 初始化 ======================
